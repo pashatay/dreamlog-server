@@ -25,6 +25,7 @@
     "logger": "0.0.1",
     "migrate": "^1.6.2",
     "morgan": "^1.9.1",
+    "postgrator": "^3.11.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
