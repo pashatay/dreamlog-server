@@ -10,11 +10,11 @@ const DataService = {
       verification_code: xss(user.verification_code)
     };
   },
-  doesUserExist(knex, email) {
+  doesUserExist(knex, id) {
     return knex
       .from("users")
       .select("*")
-      .where("email", email)
+      .where("id", id)
       .first();
   },
   insertUser(knex, newUser) {
