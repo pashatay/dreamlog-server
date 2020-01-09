@@ -3,7 +3,7 @@ const logger = require("../../src/logger");
 const express = require("express");
 const bcrypt = require("bcrypt");
 const randomstring = require("randomstring");
-
+const sendEmails = require("../../src/nodemailer/emailer");
 const DataService = require("../data-service");
 
 const signup = express.Router();
@@ -58,6 +58,12 @@ signup
               .location(path.posix.join(req.originalUrl, `${user.id}`))
               .json(DataService.serializeUser(user));
           })
+          .then(
+            sendEmails.sendEmailInitialVerification({
+              verification_code,
+              email
+            })
+          )
           .catch(next);
       });
     });
