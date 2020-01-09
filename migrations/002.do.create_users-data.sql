@@ -6,6 +6,6 @@ CREATE TABLE users_data(
  dream_type TEXT NOT NULL,
  hours_slept INTEGER NOT NULL,
  info TEXT NOT NULL,
- is_private BOOLEAN DEFAULT false NOT NULL
+ is_private BOOLEAN DEFAULT false NOT NULL,
  userid INTEGER REFERENCES users(id) ON DELETE CASCADE
 )
