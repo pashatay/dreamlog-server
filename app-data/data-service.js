@@ -28,6 +28,13 @@ const DataService = {
       .where("email", email)
       .first();
   },
+  doesUserPageExist(knex, id) {
+    return knex
+      .from("users")
+      .select("*")
+      .where({ id })
+      .first();
+  },
   insertUser(knex, newUser) {
     return knex
       .insert(newUser)
@@ -76,6 +83,12 @@ const DataService = {
       .from("users_data")
       .select("*")
       .where({ userid });
+  },
+  findUserPublicDreams(knex, userid) {
+    return knex
+      .from("users_data")
+      .select("*")
+      .where({ userid, is_private: "false" });
   },
   findUserSpecificDream(knex, userid, dreamId) {
     return knex
