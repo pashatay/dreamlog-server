@@ -62,12 +62,6 @@ const DataService = {
       .where("email", email)
       .first();
   },
-  findUserDreams(knex, userId) {
-    return knex
-      .from("users_data")
-      .select("*")
-      .where("userid", userId);
-  },
   insertDream(knex, newDream) {
     return knex
       .insert(newDream)
@@ -76,6 +70,31 @@ const DataService = {
       .then(rows => {
         return rows[0];
       });
+  },
+  findUserDreams(knex, userid) {
+    return knex
+      .from("users_data")
+      .select("*")
+      .where({ userid });
+  },
+  findUserSpecificDream(knex, userid, dreamId) {
+    return knex
+      .from("users_data")
+      .select("*")
+      .where({ userid, id: dreamId });
+  },
+  changeDreamPrivacy(knex, userid, dreamId, is_private) {
+    return knex
+      .from("users_data")
+      .where({ userid, id: dreamId })
+      .update({ is_private });
+  },
+  deleteDream(knex, userid, dreamId) {
+    return knex
+      .from("users_data")
+      .select("*")
+      .where({ userid, id: dreamId })
+      .delete();
   },
   deleteUser(knex, userID) {
     return knex

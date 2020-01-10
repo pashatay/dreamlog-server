@@ -25,7 +25,7 @@ userPage
     });
     next();
   })
-  .get(bodyParser, (req, res, next) => {
+  .get((req, res, next) => {
     DataService.findUserDreams(req.app.get("db"), userid)
       .then(dreams => {
         logger.info(`Dreams list fetched`);
@@ -33,7 +33,7 @@ userPage
       })
       .catch(next);
   })
-  .post(bodyParser, (req, res, next) => {
+  .post((req, res, next) => {
     const {
       title,
       dream_date,
@@ -61,7 +61,7 @@ userPage
       })
       .catch(next);
   })
-  .patch(bodyParser, (req, res, next) => {
+  .patch((req, res, next) => {
     let { email, password } = req.body;
     if (!password) {
       const verification_code = randomstring.generate();
