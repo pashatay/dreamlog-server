@@ -37,6 +37,12 @@ const DataService = {
         return rows[0];
       });
   },
+  verifyUser(knex, code) {
+    return knex
+      .from("users")
+      .where("verification_code", code)
+      .update({ verified: "true", verification_code: "" });
+  },
   changeUserEmail(knex, userId, email, verification_code) {
     return knex
       .from("users")
@@ -70,6 +76,13 @@ const DataService = {
       .then(rows => {
         return rows[0];
       });
+  },
+  deleteUser(knex, userID) {
+    return knex
+      .from("users")
+      .select("*")
+      .where("id", userID)
+      .delete();
   }
 };
 

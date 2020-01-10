@@ -7,6 +7,7 @@ const logger = require("../../src/logger");
 const { JWT_KEY } = require("../../src/config");
 const DataService = require("../data-service");
 const validateBearerToken = require("../../src/validate-token");
+const sendEmails = require("../../src/nodemailer/emailer");
 
 const userPage = express.Router();
 const bodyParser = express.json();
@@ -111,6 +112,14 @@ userPage
           .catch(next);
       });
     }
+  })
+  .delete((req, res, next) => {
+    DataService.deleteUser(req.app.get("db"), userid)
+      .then(user => {
+        logger.info(`your page was deleted`);
+        res.status(204).end();
+      })
+      .catch(next);
   });
 
 module.exports = userPage;
