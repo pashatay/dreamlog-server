@@ -11,9 +11,9 @@ let jwtKey = "";
 let email = "";
 resetpassword
   .route(`/resetpassword/:token`)
-  .get(bodyParser, async (req, res, next) => {
+  .post(bodyParser, (req, res, next) => {
     email = req.body.email;
-    await DataService.findUserPassword(req.app.get("db"), email).then(user => {
+    DataService.findUserPassword(req.app.get("db"), email).then(user => {
       jwtKey = user.password;
     });
     DataService.doesUserExist(req.app.get("db"), email)
@@ -35,8 +35,8 @@ resetpassword
       })
       .catch(next);
   })
-  .patch(bodyParser, async (req, res, next) => {
-    await DataService.findUserPassword(req.app.get("db"), email).then(user => {
+  .patch(bodyParser, (req, res, next) => {
+    DataService.findUserPassword(req.app.get("db"), email).then(user => {
       jwtKey = user.password;
     });
     let { password } = req.body;
