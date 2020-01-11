@@ -16,7 +16,7 @@ verification.route("/verification").get(bodyParser, (req, res, next) => {
         res
           .status(201)
           .send(
-            "<h2>Your email has been verified. You can <a href='http://localhost:8000/login'>login</a> now.</h2>"
+            "<h2>Your email has been verified. You can <a href='https://dreamlog.now.sh/'>login</a> now.</h2>"
           );
       }
     })
