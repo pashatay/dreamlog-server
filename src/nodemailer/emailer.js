@@ -68,6 +68,27 @@ const sendEmails = {
         res.status(200).send({ success: true });
       }
     });
+  },
+  sendEmailResetPassword: function(req, res) {
+    layout = "reset-password.hbs";
+    const { token, email } = req;
+    let mailOptions = {
+      from: '"Dream.log" dream.log.service@gmail.com',
+      to: email,
+      subject: "Reset Password",
+      text: "Email from Dream.log",
+      template: "reset-password",
+      context: { token }
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+        res.status(400).send({ success: false });
+      } else {
+        res.status(200).send({ success: true });
+      }
+    });
   }
 };
 
