@@ -44,7 +44,8 @@ login
           res.status(200).json({
             message: xss("Auth successful"),
             token: xss(token),
-            id: xss(user.id)
+            id: xss(user.id),
+            name: xss(user.name)
           });
           next();
         });
