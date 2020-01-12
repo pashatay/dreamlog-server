@@ -51,7 +51,7 @@ dream
     )
       .then(dream => {
         logger.info(`Dream is update`);
-        res.status(200).json({ error: `Dream was updated` });
+        res.status(200).send({ message: `Dream was updated` });
       })
       .catch(next);
   })
@@ -59,7 +59,7 @@ dream
     DataService.deleteDream(req.app.get("db"), userid, dreamid)
       .then(dream => {
         logger.info(`Dream was deleted`);
-        res.status(200).json({ error: `Dream was deleted` });
+        res.sendStatus(200);
       })
       .catch(next);
   });
