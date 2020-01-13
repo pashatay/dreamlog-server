@@ -24,7 +24,7 @@ login
             .send({ error: { message: "Incorrect email or password!" } });
         } else if (!user.verified) {
           return res
-            .status(401)
+            .status(403)
             .send({ error: { message: "Please verify your account first." } });
         }
         return bcrypt.compare(password, user.password).then(passwordsMatch => {
