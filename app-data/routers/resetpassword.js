@@ -19,7 +19,7 @@ resetpassword
     DataService.doesUserExist(req.app.get("db"), email)
       .then(user => {
         if (!user) {
-          res.status(201).send("<h2>something went wrong</h2>");
+          res.status(400).send({ error: { message: "Email wasn't found." } });
         } else {
           const token = jwt.sign(
             {
@@ -28,17 +28,15 @@ resetpassword
             },
             jwtKey
           );
-          //email goes here
           sendEmails.sendEmailResetPassword({ token, email });
-          res.status(201).send(`https://dreamlog.now.sh/reset/${token}`);
+          res.status(201).send({
+            message: "We sent you a reset link. Please check your email."
+          });
         }
       })
       .catch(next);
   })
   .patch(bodyParser, (req, res, next) => {
-    DataService.findUserPassword(req.app.get("db"), email).then(user => {
-      jwtKey = user.password;
-    });
     let { password } = req.body;
     const { token } = req.params;
     jwt.verify(token, jwtKey, (err, authData) => {
@@ -58,12 +56,13 @@ resetpassword
             .then(user => {
               logger.info(`Users password was updated.`);
               res.status(201).send({
-                message: {
-                  message: `Your password was updated. You can login now with the new password.`
-                }
+                message: `Your password was updated. You can login now with the new password.`
               });
             })
             .catch(next);
+        });
+        DataService.findUserPassword(req.app.get("db"), email).then(user => {
+          jwtKey = user.password;
         });
       }
     });
