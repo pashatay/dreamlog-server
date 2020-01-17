@@ -1,8 +1,8 @@
 {
-  "name": "express-boilerplate",
+  "name": "dreamlog-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js",
