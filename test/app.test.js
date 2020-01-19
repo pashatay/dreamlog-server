@@ -6,6 +6,7 @@ const supertest = require("supertest");
 describe("Endpoints", () => {
   let verification = "";
   let token = "Bearer ";
+  let resetToken = "";
   const user = {
     name: "test",
     email: "test@icloud.com",
@@ -35,7 +36,6 @@ describe("Endpoints", () => {
     info: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
     is_private: "true"
   };
-  let newDream = "";
 
   let db;
   before("make knex instance", () => {
@@ -135,16 +135,6 @@ describe("Endpoints", () => {
       });
     });
   });
-  //change
-  // describe("user home page", () => {
-  //   it("should fetch users data", () => {
-  //     return supertest(app)
-  //       .get("/mainpage")
-  //       .set("Authorization", token)
-  //       .send(userLogin)
-  //       .expect(201);
-  //   });
-  // });
 
   describe("add dreams", () => {
     it("should add a new dream", () => {
@@ -178,6 +168,59 @@ describe("Endpoints", () => {
         });
     });
   });
+  describe("public dream blog", () => {
+    it("returns err if blog doesnt't exist", () => {
+      return supertest(app)
+        .get(`/dreamblog/10`)
+        .expect(400);
+    });
+  });
+  describe("reset password", () => {
+    it("sends a reset link", () => {
+      return supertest(app)
+        .post(`/resetpassword/:token`)
+        .send({ email: userLogin.email })
+        .set("accept", "application/json")
+        .expect(201)
+        .then(res => {
+          resetToken += res.body.token;
+        });
+    });
+    it("resets password", () => {
+      return supertest(app)
+        .patch(`/resetpassword/${resetToken}`)
+        .send({ password: "test2" })
+        .set("accept", "application/json")
+        .expect(201);
+    });
+  });
+  describe("update userpage", () => {
+    it("returns err if email is already in use", () => {
+      return supertest(app)
+        .patch("/userpage")
+        .set("Authorization", token)
+        .send({ email: userLogin.email })
+        .set("accept", "application/json")
+        .expect(400);
+    });
+    it("changes user email", () => {
+      return supertest(app)
+        .patch("/userpage")
+        .set("Authorization", token)
+        .send({ email: "test2@icloud.com" })
+        .set("accept", "application/json")
+        .expect(201);
+    });
+    it("changes user password", () => {
+      return supertest(app)
+        .patch("/userpage")
+        .set("Authorization", token)
+        .send({ password: "updatepassword" })
+        .set("accept", "application/json")
+        .expect(201);
+    });
+  });
+
   describe("delete page", () => {
     it("deletes user page", () => {
       return supertest(app)

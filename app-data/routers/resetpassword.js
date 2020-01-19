@@ -30,6 +30,7 @@ resetpassword
           );
           sendEmails.sendEmailResetPassword({ token, email });
           res.status(201).send({
+            token,
             message: "We sent you a reset link. Please check your email."
           });
         }
