@@ -1,17 +1,24 @@
-# Express Boilerplate!
+# Dream.log
 
-This is a boilerplate project used for starting new projects!
+This is a server for **the Dream.log App**.
+![app image](src/images/mainpage.png)
+_Dream.log_ App is a dream journal/blog.
 
-## Set up
+You can find the client repo [here](https://github.com/pashatay/dreamlog).
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+For the [live page](https://dreamlog.now.sh/), the server runs on heroku.
 
-1. Clone this repository to your local machine `git clone https://github.com/pashatay/express-boilerplate NEW-PROJECTS-NAME`
+You can use the foolowing demo user credentials:
+
+- email: test@test.com
+- password: testtest
+
+## To set up the server localy:
+
+1. Clone this repository to your local machine `git clone https://github.com/pashatay/dreamlog-server NEW-PROJECTS-NAME`
 2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+3. Create your local project database and testing database. Update **config.js** accordingly.
+4. Run _Migration_ files to seed your databases.
 
 ## Scripts
 
@@ -21,6 +28,6 @@ Start nodemon for the application `npm run dev`
 
 Run the tests `npm test`
 
-## Deploying
+Run migration `npm run migrate`
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+Run migration for testing database `npm run migrate:test`
