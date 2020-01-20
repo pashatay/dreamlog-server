@@ -1,9 +1,10 @@
 # Dream.log
 
-This is a server for **the Dream.log App**.
+This is a server for the **\_Dream.log** App.
 ![app image](src/images/mainpage.png)
-_Dream.log_ App is a dream journal/blog.
 
+_Dream.log_ App is a dream journal/blog.
+It’s compatible with any device.
 You can find the client repo [here](https://github.com/pashatay/dreamlog).
 
 For the [live page](https://dreamlog.now.sh/), the server runs on heroku.
@@ -12,6 +13,8 @@ You can use the foolowing demo user credentials:
 
 - email: test@test.com
 - password: testtest
+
+![app image](src/images/log-laptop.png)
 
 ## To set up the server localy:
 
