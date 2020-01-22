@@ -5,6 +5,9 @@ This is a server for the **\_Dream.log** App.
 
 _Dream.log_ App is a dream journal/blog.
 It’s compatible with any device.
+
+Techonologies I used to build this: Node.js/Express.js, JWT, Bcrypt, XSS, NodeMailer, HBS, Chart.js, PostgreSQL.
+
 You can find the client repo [here](https://github.com/pashatay/dreamlog).
 
 For the [live page](https://dreamlog.now.sh/), the server runs on heroku.
